@@ -1,11 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faMap } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
-// import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot'
 function JobCard() {
+    const [isSolid, setIsSolid]=useState(false)
+
+    const toggleHeart=()=>{
+        setIsSolid(!isSolid)
+    }
+
   return (
     <div className='w-3/5 border border-gray border-x-0 pl-2 cursor-pointer hover:bg-gray-100 group'>
         <span className='text-xs'>Posted 2 days ago</span>
@@ -17,7 +24,7 @@ function JobCard() {
 
             <div className='space-x-3 mr-6 -top-2'>
                 <FontAwesomeIcon icon={faThumbsDown} className='h-6 cursor-pointer' />
-                <FontAwesomeIcon icon={faHeart} className='h-6 cursor-pointer' />
+                <FontAwesomeIcon icon={isSolid ? faHeartSolid: faHeartRegular} className='h-6 cursor-pointer' onClick={toggleHeart} />
             </div>
         </div>
         <div className='mb-4'>
@@ -34,18 +41,18 @@ function JobCard() {
             <p>Payment Verified</p>
 
             <div className='hidden'>
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}} />
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}} />
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}}/>
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}}/>
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}}/>
+            <FontAwesomeIcon icon={faStarRegular} />
+            <FontAwesomeIcon icon={faStarRegular} />
+            <FontAwesomeIcon icon={faStarRegular}/>
+            <FontAwesomeIcon icon={faStarRegular}/>
+            <FontAwesomeIcon icon={faStarRegular}/>
             </div>
             <div>
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}} />
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}} />
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}}/>
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}}/>
-            <FontAwesomeIcon icon={faStar} style={{color: "#FFD43B",}}/>
+            <FontAwesomeIcon icon={faStarSolid} style={{color: "#FFD43B",}} />
+            <FontAwesomeIcon icon={faStarSolid} style={{color: "#FFD43B",}} />
+            <FontAwesomeIcon icon={faStarSolid} style={{color: "#FFD43B",}}/>
+            <FontAwesomeIcon icon={faStarSolid} style={{color: "#FFD43B",}}/>
+            <FontAwesomeIcon icon={faStarSolid} style={{color: "#FFD43B",}}/>
             </div>
 
             <p>$20K+ <span>Spent</span> </p>
