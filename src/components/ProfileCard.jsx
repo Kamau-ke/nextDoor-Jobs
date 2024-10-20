@@ -2,7 +2,7 @@ import React from 'react'
 import Profile from'../assets/images/profile.jpg'
 function ProfileCard() {
   return (
-      <div className='bg-slate-50 w-1/5 h-56 rounded-3xl'>
+      <div className='bg-slate-50 w-3/12 h-56 rounded-3xl'>
           <div className='p-8 flex space-x-2'>
          <img src={Profile} className='h-16 w-16 rounded-full' />
       <div className='mt-2'>

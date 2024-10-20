@@ -14,7 +14,7 @@ function JobCard() {
     }
 
   return (
-    <div className='w-3/5 border border-gray border-x-0 pl-2 cursor-pointer hover:bg-gray-100 group'>
+    <div className='w-9/12 border border-gray border-x-0 pl-2 cursor-pointer hover:bg-gray-100 group'>
         <span className='text-xs'>Posted 2 days ago</span>
         <div className='flex justify-between'>
             <div>
