@@ -3,7 +3,8 @@ import Navbar from './components/Navbar'
 import JobCard from './components/JobCard'
 import './App.css'
 import MainSection from './components/MainSection'
-import JobApplication from './pages/JobApplication'
+import JobApplication from './JobApplication'
+
 function App() {
  
 
@@ -12,9 +13,8 @@ function App() {
     {/* <Register/> */}
     {/* <Navbar/>
     <MainSection/> */}
-    <h2>hello</h2>
-    <JobApplication/>
     
+    <JobApplication/>
     </div>
   )
 }
