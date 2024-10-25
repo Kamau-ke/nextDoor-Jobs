@@ -3,32 +3,52 @@ import Button from '../components/button'
 
 function Register() {
   return (
-    <div className='Register-page '>
-    <form action="" className='Register-form'>
-    <label htmlFor="name">First name</label>
-    <input type="text"  placeholder="Your name"/>
+    <div className='w-screen h-screen  flex items-center justify-center  '>
+    <form action="" className='flex flex-col w-5/12 h-fit space-y-4'>
 
-    <label htmlFor="name">last name</label>
-    <input type="text"  />
+    <div className='flex w-full justify-between'>
+    <div className='w-1/2'>
+    <label htmlFor="name" className='block'>First name</label>
+    <input type="text" className='border border-gray-200 w-11/12'/>
+    </div>
 
-    <label htmlFor="email">Email</label>
-    <input type="text"  />
+    <div className=' w-1/2'>
+    <label htmlFor="name" className='block'>last name</label>
+    <input type="text" className='border border-gray-200 w-full' />
+    </div>
+
+    </div>
     
+    <div>
+      <label htmlFor="email" className='block'>Email</label>
+      <input type="text" className='border border-gray-200 w-full' />
+    </div>
+  
+  
+    <div>
+      <label htmlFor="phone"className='block' >Phone</label>
+      <input type="text" className='border border-gray-200 w-full'/>
+    </div>
 
-    <label htmlFor="phone">Phone</label>
-    <input type="text" />
+    <div>
+      <label htmlFor="skills" className='block'>Skills</label>
+      <input type="text" className='border border-gray-200 w-full'/>
+    </div>
 
-    <label htmlFor="skills">Skills</label>
-    <input type="text" />
+    <div>
+      <label htmlFor="location" className='block'>Location</label>
+      <input type="text" className='border border-gray-200 w-full'/>
+    </div>
 
-    <label htmlFor="location">Location</label>
-    <input type="text"/>
+    <div>    
+      <label htmlFor="dob" className='block'>Date of birth</label>
+      <input type="date" className='border border-gray-200 w-full'/>
+    </div>
 
-    <label htmlFor="dob">Date of birth</label>
-    <input type="date"/>
-
-    <label htmlFor="password">Password</label>
-    <input type="password"/>
+    <div>
+      <label htmlFor="password" className='block'>Password</label>
+      <input type="password" className='border border-gray-200 w-full'/>
+    </div>
 
     <Button text='submit' />
    </form>
