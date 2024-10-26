@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import JobCard from './components/JobCard'
 
 import MainSection from './components/MainSection'
-import JobApplication from './JobApplication'
+import JobApplication from './components/JobApplication'
 
 function App() {
  

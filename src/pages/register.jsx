@@ -9,45 +9,38 @@ function Register() {
     <div className='flex w-full justify-between'>
     <div className='w-1/2'>
     <label htmlFor="name" className='block'>First name</label>
-    <input type="text" className='border border-gray-200 w-11/12'/>
+    <input type="text" className='border-2 border-gray-200 w-11/12 h-10 rounded-lg'/>
     </div>
 
     <div className=' w-1/2'>
     <label htmlFor="name" className='block'>last name</label>
-    <input type="text" className='border border-gray-200 w-full' />
+    <input type="text" className='border-2 border-gray-200 w-full h-10 rounded-lg' />
     </div>
 
     </div>
     
     <div>
       <label htmlFor="email" className='block'>Email</label>
-      <input type="text" className='border border-gray-200 w-full' />
+      <input type="text" className='border-2 border-gray-200 w-full h-10 rounded-lg' />
     </div>
   
   
     <div>
       <label htmlFor="phone"className='block' >Phone</label>
-      <input type="text" className='border border-gray-200 w-full'/>
+      <input type="text" className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
     </div>
+
 
     <div>
-      <label htmlFor="skills" className='block'>Skills</label>
-      <input type="text" className='border border-gray-200 w-full'/>
+      <label htmlFor="Country" className='block'>Location</label>
+      <input type="text" className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
     </div>
 
-    <div>
-      <label htmlFor="location" className='block'>Location</label>
-      <input type="text" className='border border-gray-200 w-full'/>
-    </div>
-
-    <div>    
-      <label htmlFor="dob" className='block'>Date of birth</label>
-      <input type="date" className='border border-gray-200 w-full'/>
-    </div>
+    
 
     <div>
       <label htmlFor="password" className='block'>Password</label>
-      <input type="password" className='border border-gray-200 w-full'/>
+      <input type="password" className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
     </div>
 
     <Button text='submit' />

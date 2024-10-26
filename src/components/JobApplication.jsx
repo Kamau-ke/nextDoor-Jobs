@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import Button from './components/button'
+import Button from './button'
 function JobApplication() {
   return (
     <div className='overflow-x-hidden'>
@@ -37,7 +37,7 @@ function JobApplication() {
 
             <div className='border border-gray-300 rounded-3xl mt-8 mb-12 h-96'>
                 <h1 className='font-medium text-2xl p-4'>Cover Letter</h1>
-                <input type="text" className='border border-gray-300 rounded-2xl w-11/12 h-3/4 ml-12' />
+                <textarea  className='border border-gray-300 rounded-2xl w-11/12 h-3/4 ml-12' />
             </div>
 
             <div className='mb-12'>
