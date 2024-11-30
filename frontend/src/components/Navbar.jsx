@@ -13,13 +13,13 @@ function Navbar() {
     {/* left side of navbar */}
     <div className='flex w-3/5 relative'>
 
-        <div className="mr-14">
+        <div className="mr-14 ">
             <h2 className='pl-6'>NextDoor-Jobs</h2>
         </div>
 
-
+    
         <ul className='flex items-center space-x-4'>
-        <li className='relative group cursor-pointer'>Find Jobs <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span>
+        <li className='relative group cursor-pointer '>Find Jobs <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span>
             <div className='hidden group-hover:block absolute top-full left-0 mt-2 p-4 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-20'>
                 <div className='absolute -top-2 left-1/4 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white'></div>
                 <p className='text-gray-700'>Explore job opportunities</p>
@@ -44,11 +44,15 @@ function Navbar() {
         </ul>
 
     </div>
+
+    <div className='w-48 hidden'>
+        <h2>NextDoor-Jobs</h2>
+    </div>
         
     {/* right side of navbar */}
     <div className=' flex  items-center space-x-4 w-2/5' >
 
-        <div className='w-3/5 flex items-center justify-between border-gray-400 border-2  rounded-3xl '>
+        <div className='w-3/5 flex items-center justify-between border-gray-400 border-2  rounded-3xl lg:flex sm:hidden'>
             <div className='flex items-center w-4/5'>
                 
                     <FontAwesomeIcon icon={faMagnifyingGlass} className='h-4 ml-2 text-gray-600' />
