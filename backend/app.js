@@ -2,6 +2,8 @@ const express=require('express')
 const app=express()
 const auth=require('./Routes/auth')
 const cors=require('cors')
+const connectDB=require('./db/connect')
+require('dotenv').config()
 
 app.use(cors())
 app.use(express.urlencoded({extended:true}))
@@ -14,5 +16,16 @@ app.post('/register', (req, res)=>{
     res.send('hello backend')
 })
 
-app.listen(5000, console.log('App running on port 5000')
-)
+const start=async ()=>{
+    try {
+        await connectDB(process.env.MONGO_URL)
+        app.listen(5000, console.log('App running on port 5000'))
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+start()
+
+
