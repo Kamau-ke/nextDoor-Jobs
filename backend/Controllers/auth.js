@@ -1,5 +1,11 @@
-const register=(req, res)=>{
-    res.status(200).json({success:true, data:req.body})
+const User=require('../model/user')
+
+const register=async (req, res)=>{
+    const user=await User.create({...req.body})
+
+    const token=user.createToken()
+
+    res.status(200).json({name:user.name}, token)
 }
 
 const login=(req, res)=>{
