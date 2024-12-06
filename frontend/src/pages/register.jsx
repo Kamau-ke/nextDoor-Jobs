@@ -28,7 +28,7 @@ function Register() {
     }
 
     try {
-      const response= await axios.post('/api/v1/users/register', formData)
+      const response= await axios.post('http://localhost:5000/api/v1/users/register', formData)
       setSuccess(response.data.msg || 'Registration successfull')
       console.log(success);
       

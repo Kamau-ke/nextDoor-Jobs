@@ -16,9 +16,7 @@ app.use(express.json())
 app.use('/api/v1/users', auth)
 
 
-app.post('/register', (req, res)=>{
-    res.send('hello backend')
-})
+
 
 app.use(errorHandlerMiddleware)
 app.use(notFound)
