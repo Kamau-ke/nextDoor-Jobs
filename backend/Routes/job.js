@@ -1,0 +1,12 @@
+const express=require('express')
+const router=express.Router()
+const {createJob,
+    getAllJobs,
+    getUserJobs,
+    getJob,
+    editJob,
+    deleteJob}=require('../Controllers/job')
+router.route('/').get(getAllJobs).post(createJob)
+roueter.route('/:id').get(getJob).patch(editJob).delete(deleteJob)
+
+module.exports=router

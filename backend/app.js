@@ -5,7 +5,7 @@ const cors=require('cors')
 const connectDB=require('./db/connect')
 const errorHandlerMiddleware=require('./middlewares/errorHandler')
 const notFound=require('./middlewares/notFound')
-
+const jobRouter=require('./Routes/job')
 require('dotenv').config()
 
 app.use(cors())
@@ -14,6 +14,7 @@ app.use(express.json())
 
 
 app.use('/api/v1/users', auth)
+app.use('/api/v1/job',jobRouter)
 
 
 const uri=process.env.MONGO_URL
