@@ -16,6 +16,7 @@ app.use(express.json())
 app.use('/api/v1/users', auth)
 
 
+const uri=process.env.MONGO_URL
 
 
 app.use(errorHandlerMiddleware)
@@ -23,7 +24,7 @@ app.use(notFound)
 
 const start=async ()=>{
     try {
-        await connectDB(process.env.MONGO_URL)
+        await connectDB(uri)
         app.listen(5000, console.log('App running on port 5000'))
     } catch (error) {
         console.log(error)
