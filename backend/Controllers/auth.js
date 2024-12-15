@@ -6,9 +6,9 @@ const register=async (req, res)=>{
     const user=await User.create({...req.body})
   
     
-    // const token=user.createToken()
+    const token=user.createToken()
 
-    // res.status(200).json({name:user.name}, token)
+    res.status(200).json({name:user.name}, token)
 }
 
 const login=async (req, res)=>{

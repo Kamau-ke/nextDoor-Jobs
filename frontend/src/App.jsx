@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className='h-screen w-screen bg-white overflow-x-hidden'>
-      <ProfileCard/>
+      <PostJob/>
     </div>
   )
 }

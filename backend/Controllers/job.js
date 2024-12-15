@@ -2,7 +2,7 @@ const Job=require('../model/job')
 const {notFound, badRequest}=require('../errors/index')
 
 const createJob=async (req, res)=>{
-    req.body.createdBy=req.user.userID
+    // req.body.createdBy=req.user.userID
     const job=await Job.create({...req.body})
     res.status(201).json({job})
 }

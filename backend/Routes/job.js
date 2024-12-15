@@ -7,6 +7,6 @@ const {createJob,
     editJob,
     deleteJob}=require('../Controllers/job')
 router.route('/').get(getAllJobs).post(createJob)
-roueter.route('/:id').get(getJob).patch(editJob).delete(deleteJob)
+router.route('/:id').get(getJob).patch(editJob).delete(deleteJob)
 
 module.exports=router
