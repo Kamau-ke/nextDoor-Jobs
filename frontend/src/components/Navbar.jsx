@@ -33,13 +33,7 @@ function Navbar() {
                 <p className='text-gray-600 text-sm'>Browse open positions by industry</p>
             </div>
             </li>
-            <li className='relative group cursor-pointer'>Manage Finances <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span>
-             <div className='hidden group-hover:block absolute top-full left-0 mt-2 p-4 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-20'>
-                <div className='absolute -top-2 left-1/4 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white'></div>
-                <p className='text-gray-700'>Explore job opportunities</p>
-                <p className='text-gray-600 text-sm'>Browse open positions by industry</p>
-            </div>
-            </li>
+          
             <li className='cursor-pointer'>Messages</li>
         </ul>
 
