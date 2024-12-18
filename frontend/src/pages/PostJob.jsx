@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import { useState } from 'react'
 import axios from 'axios'
 function PostJob() {
+
   const [title, setTitle]=useState('')
   const [description, setDescription]=useState('')
   const [position, setPosition]=useState('')
@@ -13,8 +14,30 @@ function PostJob() {
   const [success, setSuccess]=useState(null)
   const [error, setError]=useState(null)
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async (e)=>{
     e.preventDefault()
+
+    const formData={
+      title,
+      description,
+      position,
+      skills,
+      country,
+      budget
+    }
+
+
+    try {
+     const response=await axios.post('http://localhost:5000/api/v1/job', formData)
+     setSuccess(response || 'Job posted successfuly')
+     console.log(response);
+     
+    } catch (error) {
+      setError(error)
+      console.log(error);
+      
+    }
+    
     
   }
 
@@ -22,7 +45,7 @@ function PostJob() {
     <div>
       <Navbar/>
       <div className='w-screen h-screen  flex justify-center'>
-      <form action="" className='w-3/4 flex flex-col  mt-12 '>
+      <form action="" onSubmit={handleSubmit} className='w-3/4 flex flex-col  mt-12 '>
         <label htmlFor="">Name of your job?</label>
         <input type="text" onChange={e=>{setTitle(e.target.value)}} className='border border-slate-500 p-2 mb-5 w-1/4'/>
 

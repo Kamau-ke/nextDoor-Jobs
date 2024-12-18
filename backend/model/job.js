@@ -6,9 +6,7 @@ const jobSchema=new mongoose.Schema({
         required:[true, 'Provide job title']
     },
     position:{
-        type:String,
-        required:[true, 'Please provide position'],
-        enum:['begginer', 'intermidiate', 'expert']
+        type:String
     },
     skills:{
         type:String,
@@ -20,8 +18,7 @@ const jobSchema=new mongoose.Schema({
 
     },
     location:{
-        type:String,
-        required:[true, 'Provide job location']
+        type:String
 
     },
     budget:{
