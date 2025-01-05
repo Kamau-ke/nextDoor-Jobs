@@ -49,7 +49,7 @@ function PostJob() {
         <label htmlFor="">Name of your job?</label>
         <input type="text" onChange={e=>{setTitle(e.target.value)}} className='border border-slate-500 p-2 mb-5 w-1/4'/>
 
-        <label htmlFor="">Give a blief explanation</label>
+        <label htmlFor="">Give a blief description</label>
         <textarea onChange={e=>{setDescription(e.target.value)}}  className='border border-slate-500 p-8 mb-5 w-1/2 '/>
 
         <label htmlFor="">How much are you willing to pay?</label>
