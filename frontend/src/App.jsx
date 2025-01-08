@@ -1,3 +1,6 @@
+// import { useEffect, useState } from 'react'
+// import axios from 'axios'
+
 import Register from'./pages/register'
 import JobCard from './components/JobCard'
 
@@ -8,7 +11,7 @@ import AboutJob from './pages/AboutJob'
 import HomePage from './pages/HomePage'
 
 function App() {
- 
+  
 
   return (
     <div className='h-screen w-screen bg-white overflow-x-hidden'>
