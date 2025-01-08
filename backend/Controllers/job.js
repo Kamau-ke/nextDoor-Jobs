@@ -9,12 +9,14 @@ const createJob=async (req, res)=>{
 
 const getAllJobs=async (req, res)=>{
     const jobs=await Job.find({})
-    res.status(200).json({success:true, data:jobs}, {nHits:jobs.length})
+    res.status(200).json({success:true, data:jobs, nHits:jobs.length})
+
 }
+
 
 const getUserJobs=async (req, res)=>{
     const jobs=await Job.find({createdBy:req.user.userID})
-    res.status(200).json({success:true, data:jobs},{nHits:jobs.length})
+    res.status(200).json({success:true, data:jobs, nHits:jobs.length})
 }
 
 const getJob=async (req,res)=>{

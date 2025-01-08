@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Routes, NavLink} from 'react-router-dom'
+import {BrowserRouter as Router, Routes,Route, Link} from 'react-router-dom'
 import Profile from '../assets/images/profile.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
@@ -12,7 +12,7 @@ import HomePage from '../pages/HomePage'
 function Navbar() {
   return (
     <Router>
-        <nav>
+       
     <div className='w-screen h-20 flex flex-1 items-center justify-between px-6'>
 
     {/* left side of navbar */}
@@ -25,7 +25,7 @@ function Navbar() {
 
         <ul className='flex items-center space-x-4'>
         
-        <NavLink to='/'>
+        
         <li className='relative group cursor-pointer '>Find Jobs <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span>
             <div className='hidden group-hover:block absolute top-full left-0 mt-2 p-4 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-20'>
                 <div className='absolute -top-2 left-1/4 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white'></div>
@@ -33,7 +33,7 @@ function Navbar() {
                 <p className='text-gray-600 text-sm'>Browse open positions by industry</p>
             </div>
         </li>
-        </NavLink>
+       
             <li className='relative group cursor-pointer'>Find Talents <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span>
              <div className='hidden group-hover:block absolute top-full left-0 mt-2 p-4 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-20'>
                 <div className='absolute -top-2 left-1/4 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white'></div>
@@ -94,7 +94,8 @@ function Navbar() {
     
     </div>
 
-    </nav>
+    
+    
     </Router>
   )
 }

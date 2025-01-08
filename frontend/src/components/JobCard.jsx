@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
@@ -6,9 +6,21 @@ import { faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot'
-
+import axios from 'axios'
 function JobCard() {
     const [isSolid, setIsSolid]=useState(false)
+    const [data, setData]=useState([])
+    const [error, setError]=useState(null)
+
+    useEffect(()=>{
+      const fetchData=async()=>{
+            try {
+               await axios.get('') 
+            } catch (error) {
+                
+            }
+      }
+    }, [])
 
     const toggleHeart=()=>{
         setIsSolid(!isSolid)
