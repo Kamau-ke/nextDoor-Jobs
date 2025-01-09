@@ -1,5 +1,6 @@
 // import { useEffect, useState } from 'react'
 // import axios from 'axios'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Register from'./pages/register'
 import JobCard from './components/JobCard'
@@ -15,9 +16,16 @@ function App() {
 
   return (
     <div className='h-screen w-screen bg-white overflow-x-hidden'>
-      <HomePage/>
+      <Router>
+      <Routes>
+      
+        <Route path='/' element={<HomePage/>} />
+        <Route path='/job/:id' element={JobApplication} />
+        
+      </Routes>
+      </Router>
     </div>
-  )
+  );
 }
 
 export default App

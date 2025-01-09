@@ -7,11 +7,13 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function JobCard() {
   const [isSolid, setIsSolid] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const navigate=useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +43,7 @@ function JobCard() {
         <p>Loading jobs...</p>
       ) : (
         data.map((job) => (
-          <div key={job.id} className="w-9/12 border border-gray border-x-0 pl-2 cursor-pointer hover:bg-gray-100 group">
+          <div key={job._id} onClick={()=>navigate(`/job/${job._id}`)} className="w-9/12 border border-gray border-x-0 pl-2 cursor-pointer hover:bg-gray-100 group">
             <span className="text-xs">Posted {job.postedAt} days ago</span>
             <div className="flex justify-between">
               <div>

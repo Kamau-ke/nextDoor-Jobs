@@ -11,7 +11,7 @@ import HomePage from '../pages/HomePage'
 // // import '../App.css'
 function Navbar() {
   return (
-    <Router>
+   
        
     <div className='w-screen h-20 flex flex-1 items-center justify-between px-6'>
 
@@ -96,7 +96,7 @@ function Navbar() {
 
     
     
-    </Router>
+   
   )
 }
 
