@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../components/button'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -15,6 +16,8 @@ function Register() {
  const [password, setPassword]= useState('')
  const [error, setError]=useState(null)
  const [success, setSuccess]=useState(null)
+
+ const navigate=useNavigate()
 
   const handleSubmit=async (e)=>{
     e.preventDefault()
@@ -30,7 +33,7 @@ function Register() {
     try {
       const response= await axios.post('http://localhost:5000/api/v1/users/register', formData)
       setSuccess(response.data.msg || 'Registration successfull')
-      console.log(success);
+      navigate('/home')
       
     } catch (error) {
       setError(error || 'Registration failed')

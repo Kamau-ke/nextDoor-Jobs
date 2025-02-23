@@ -2,13 +2,16 @@ import React from 'react'
 import Button from '../components/button'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
     const [email, setEmail]=useState('')
     const [password, setPassword]=useState('')
+
     const [error, setError]=useState(null)
     const [success, setSuccess]=useState(null)
+    const navigate=useNavigate()
 
   const handleSubmit=async (e)=>{
     e.preventDefault()
@@ -19,8 +22,12 @@ function Login() {
 
 
     try {
-      const response=await axios.post('http://localhost:5000/api/v1/users/login', formData)
+      const response=await axios.post('http://localhost:5000/api/v1/users/login', formData,
+       {withCredentials:true})
       setSuccess(response.data.msg || 'Login successfull')
+      console.log(response);
+      
+      navigate('/home')
     } catch (error) {
       setError(error || 'Login failed')
     }

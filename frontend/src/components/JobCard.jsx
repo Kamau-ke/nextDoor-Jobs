@@ -77,7 +77,7 @@ function JobCard() {
               <p>$ Spent</p>
               <div>
                 <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
-                <span>Location</span>
+                <span>{job.location}</span>
               </div>
             </div>
             <p className="text-sm">
