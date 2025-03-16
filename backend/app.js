@@ -1,3 +1,4 @@
+require('express-async-errors')
 const express=require('express')
 const app=express()
 const auth=require('./Routes/auth')
@@ -9,12 +10,16 @@ const errorHandlerMiddleware=require('./middlewares/errorHandler')
 const notFound=require('./middlewares/notFound')
 const jobRouter=require('./Routes/job')
 
+
 require('dotenv').config()
+
 
 app.use(cors({
     origin:'http://localhost:5173',
     credentials:true
 }))
+
+
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())

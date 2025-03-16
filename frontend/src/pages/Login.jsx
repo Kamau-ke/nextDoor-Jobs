@@ -22,17 +22,29 @@ function Login() {
 
 
     try {
-      const response=await axios.post('http://localhost:5000/api/v1/users/login', formData,
+      const res=await axios.post('http://localhost:5000/api/v1/users/login', formData,
        {withCredentials:true})
-      setSuccess(response.data.msg || 'Login successfull')
-      console.log(response);
+      setSuccess(res.data.msg || 'Login successfull')
+      console.log(res);
       
       navigate('/home')
     } catch (error) {
-      setError(error || 'Login failed')
-    }
-   
+      if(axios.isAxiosError(error)){
+        
+        
+        setError(error.response.data.message || 'Login failed')
+        
+        
+      }
 
+      
+      
+      
+    }
+    console.log(error);
+   
+   
+    
 
   }
 

@@ -40,7 +40,7 @@ const userSchema=new mongoose.Schema(
 
 
 userSchema.methods.createToken=function(){
-    return jwt.sign({userID:this._id, userName:this.firstName}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_LIFETIME})
+    return jwt.sign({userId:this._id }, process.env.JWT_SECRET, {expiresIn:process.env.JWT_LIFETIME})
 
 }
 

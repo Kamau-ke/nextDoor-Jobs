@@ -1,10 +1,10 @@
 const customApiError=require('./customError')
 
-class notFound extends customApiError{
+class unUthorized extends customApiError{
     constructor(message){
         super(message)
         this.statusCode=401
     }
 }
 
-module.exports=notFound
+module.exports=unUthorized

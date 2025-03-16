@@ -31,12 +31,14 @@ function Register() {
     }
 
     try {
-      const response= await axios.post('http://localhost:5000/api/v1/users/register', formData)
+      const response= await axios.post('http://localhost:5000/api/v1/users/register', formData, {
+        headers: {'Content-Type': 'application/json'}
+      })
       setSuccess(response.data.msg || 'Registration successfull')
       navigate('/home')
       
     } catch (error) {
-      setError(error || 'Registration failed')
+      setError(error.response.data.message || 'Registration failed')
       console.log(error);
       
     }
@@ -45,43 +47,44 @@ function Register() {
 
   return (
     <div className='w-screen h-screen  flex items-center justify-center  '>
+      <div className='bg-red text-white '>{error}</div>
     <form action="" onSubmit={handleSubmit} className='flex flex-col w-5/12 h-fit space-y-4'>
 
     <div className='flex w-full justify-between'>
     <div className='w-1/2'>
     <label htmlFor="name" className='block'>First name</label>
-    <input type="text" onChange={(e)=>setFirstName(e.target.value)} className='border-2 border-gray-200 w-11/12 h-10 rounded-lg'/>
+    <input type="text" required onChange={(e)=>setFirstName(e.target.value)} className='border-2 border-gray-200 w-11/12 h-10 rounded-lg'/>
     </div>
 
     <div className=' w-1/2'>
     <label htmlFor="name" className='block'>last name</label>
-    <input type="text" onChange={(e)=>setLastName(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg' />
+    <input type="text" required onChange={(e)=>setLastName(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg' />
     </div>
 
     </div>
     
     <div>
       <label htmlFor="email" className='block'>Email</label>
-      <input type="text" onChange={(e)=>setEmail(e.target.value)} className='border-2 border-gray-200 w-full h-10 rounded-lg' />
+      <input type="text" required onChange={(e)=>setEmail(e.target.value)} className='border-2 border-gray-200 w-full h-10 rounded-lg' />
     </div>
   
   
     <div>
       <label htmlFor="phone"className='block' >Phone</label>
-      <input type="text" onChange={(e)=>setPhone(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
+      <input type="text" required onChange={(e)=>setPhone(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
     </div>
 
 
     <div>
       <label htmlFor="Country" className='block'>Location</label>
-      <input type="text" onChange={(e)=>setCountry(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
+      <input type="text" required onChange={(e)=>setCountry(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
     </div>
 
     
 
     <div>
       <label htmlFor="password" className='block'>Password</label>
-      <input type="password" onChange={(e)=>setPassword(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
+      <input type="password" required onChange={(e)=>setPassword(e.target.value)}  className='border-2 border-gray-200 w-full h-10 rounded-lg'/>
     </div>
 
     <Button text='submit'/>
