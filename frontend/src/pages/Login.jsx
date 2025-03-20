@@ -36,14 +36,7 @@ function Login() {
         
         
       }
-
-      
-      
-      
     }
-    console.log(error);
-   
-   
     
 
   }
@@ -54,7 +47,7 @@ function Login() {
         <form action="" onSubmit={handleSubmit} className='flex flex-col items-center w-1/4 h-3/4 border border-gray-500 rounded-xl '>
             <h2 className='p-4 font-semibold text-2xl mb-4' >Login to your Account</h2>
             {/* error */}
-            <h3 className='p-2 w-3/4  bg-red-500 border rounded-xl text-white text-center mb-8 hidden'>Invalid credentials</h3>
+            <h3 className={`p-2 w-3/4 bg-red-500 border rounded-xl text-white text-center mb-8  transition-opacity duration-500 ${error ? 'opacity-100' : 'opacity-0'}`}>{error}</h3>
     
             <div className='flex flex-col space-y-8  w-3/4'>
               <div>

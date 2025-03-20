@@ -18,9 +18,11 @@ function JobCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/job', {
-          headers: { 'Content-Type': 'application/json' },
+        const response = await axios.get('http://localhost:5000/api/v1/job',{
+          withCredentials:true
         });
+        console.log(response);
+        
         setData(response.data.data);
       } catch (error) {
         setError(error.message);

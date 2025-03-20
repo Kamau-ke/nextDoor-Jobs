@@ -3,13 +3,31 @@ const jwt=require('jsonwebtoken')
 
 const verifyToken=(req, res, next)=>{
     const token=req.cookies.token
-    if(!token) return res.status(401).json({message: 'Not Authenticated'})
+    if(!token){
+       return res.redirect('/login')
+    }
     
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded)=>{
-        if(err) return res.status(403).json({message: 'Invalid token'})
-        req.userId=decoded.id
+        if(err) {
+           return res.redirect('/login')
+        }
+       
+        
+        req.userId=decoded.userId
         next()
     })
 }
 
-module.exports=verifyToken
+const checkUser=(req, res, next)=>{
+    const token=req.cookies.token
+
+    if(!token){
+        res.status(400).json({message:'No user available'})
+    }
+
+    const user=jwt.decode(token, process.env.JWT_SECRET)
+    
+}
+
+
+module.exports={verifyToken}

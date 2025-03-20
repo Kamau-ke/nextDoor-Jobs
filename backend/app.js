@@ -9,6 +9,7 @@ const connectDB=require('./db/connect')
 const errorHandlerMiddleware=require('./middlewares/errorHandler')
 const notFound=require('./middlewares/notFound')
 const jobRouter=require('./Routes/job')
+const {verifyToken}=require('./middlewares/verify')
 
 
 require('dotenv').config()
@@ -26,7 +27,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/v1/users', auth)
-app.use('/api/v1/job',jobRouter)
+app.use('/api/v1/job',verifyToken, jobRouter)
 
 app.get('/', (req,res)=>{
     console.log(req.cookies);

@@ -43,6 +43,7 @@ function Navbar() {
             </li>
           
             <li className='cursor-pointer'>Messages</li>
+           
         </ul>
 
     </div>
@@ -88,6 +89,8 @@ function Navbar() {
                 <img src={Profile} alt="profile image" className='w-10 h-10 rounded-full'/>
                 {/* <span>john doe</span> */}
             </div>
+
+           
     </div>
 
        
