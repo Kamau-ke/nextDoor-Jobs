@@ -18,7 +18,7 @@ function Navbar() {
     {/* left side of navbar */}
     <div className='flex w-3/5 relative'>
 
-        <div className="mr-14 ">
+        <div className="mr-14">
             <h2 className='pl-6'>NextDoor-Jobs</h2>
         </div>
 
@@ -33,14 +33,6 @@ function Navbar() {
                 <p className='text-gray-600 text-sm'>Browse open positions by industry</p>
             </div>
         </li>
-       
-            <li className='relative group cursor-pointer'>Find Talents <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span>
-             <div className='hidden group-hover:block absolute top-full left-0 mt-2 p-4 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-20'>
-                <div className='absolute -top-2 left-1/4 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white'></div>
-                <p className='text-gray-700'>Explore job opportunities</p>
-                <p className='text-gray-600 text-sm'>Browse open positions by industry</p>
-            </div>
-            </li>
           
             <li className='cursor-pointer'>Messages</li>
            
@@ -48,9 +40,7 @@ function Navbar() {
 
     </div>
 
-    <div className='w-48 hidden'>
-        <h2>NextDoor-Jobs</h2>
-    </div>
+  
         
     {/* right side of navbar */}
     <div className=' flex  items-center space-x-4 w-2/5' >
@@ -65,16 +55,11 @@ function Navbar() {
                     <input type="text"  className='p-1 text-gray-600 w-full' placeholder='Search'/>
                 </form>
             </div>
-
-            <div className='flex items-center w-1/5'>
-                <span className='text-gray-200 pl-0 pr-1 text-sm'>|</span>
-                <div className=''>
-                    <h4 className='p-1 cursor-pointer'>Jobs <span className='text-gray-400'><FontAwesomeIcon icon={faAngleDown} className=' h-3'/></span></h4>
-                </div>
-            </div>
            
           
        </div>
+
+       <span>kamau</span>
 
        <div className='relative h-5' >
             <FontAwesomeIcon icon={faBell} className=' h-full cursor-pointer'/>
@@ -85,10 +70,7 @@ function Navbar() {
 
      
 
-            <div className='flex items-center'>
-                <img src={Profile} alt="profile image" className='w-10 h-10 rounded-full'/>
-                {/* <span>john doe</span> */}
-            </div>
+        
 
            
     </div>

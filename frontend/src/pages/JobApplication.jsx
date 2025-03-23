@@ -7,40 +7,38 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import Button from '../components/button'
 function JobApplication() {
     const {jobId}=useParams()
-    console.log(jobId);
+    
     
 
     const [job, setJob]=useState({})
     const [error, setError]=useState(null)
     const [loading, setLoading]=useState(true)
 
-    const fetchData=async ()=>{
-        try {
-           const response=await axios.get(`http://localhost:5000/api/v1/job/${jobId}`) 
-           setJob(response.data.job[0])
-        
-           
-        } catch (error) { 
-            setError(error.message)
-        }
-    }
-
-    const dataLoaded=React.useRef(false)
 
     useEffect(()=>{
-        if(!dataLoaded.current){
-            fetchData()
-            dataLoaded.current=true
-        }
         
-    }, [])
-
-    console.log(job);
+        const fetchData=async ()=>{
+            try {
+               const response=await axios.get(`http://localhost:5000/api/v1/job/${jobId}`, {
+                withCredentials:true
+               }) 
     
+               setJob(response.data.job[0])
+             
+                
+               
+            } catch (error) { 
+                setError(error.message)
+            }
+        }
+
+        fetchData()
+
+    }, [jobId])
+    
+
+
   
-    
-
-    
     
     // const job=axios.get('/api/v1/job/')
 

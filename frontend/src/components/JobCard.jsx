@@ -21,7 +21,7 @@ function JobCard() {
         const response = await axios.get('http://localhost:5000/api/v1/job',{
           withCredentials:true
         });
-        console.log(response);
+       
         
         setData(response.data.data);
       } catch (error) {
@@ -55,7 +55,6 @@ function JobCard() {
                 </p>
               </div>
               <div className="space-x-3 mr-6 -top-2">
-                <FontAwesomeIcon icon={faThumbsDown} className="h-6 cursor-pointer" />
                 <FontAwesomeIcon icon={isSolid ? faHeartSolid : faHeartRegular} className="h-6 cursor-pointer" onClick={toggleHeart} />
               </div>
             </div>
@@ -71,20 +70,14 @@ function JobCard() {
             </div>
             <div className="flex space-x-10 mb-4 text-sm">
               <p>{job.paymentVerified ? 'Payment Verified' : 'Payment Unverified'}</p>
-              <div>
-                {[...Array(job.rating)].map((_, index) => (
-                  <FontAwesomeIcon key={index} icon={faStarSolid} style={{ color: '#FFD43B' }} />
-                ))}
-              </div>
-              <p>$ Spent</p>
+            
+      
               <div>
                 <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
                 <span>{job.location}</span>
               </div>
             </div>
-            <p className="text-sm">
-              Proposals: <span>10-30</span>
-            </p>
+          
           </div>
         ))
       )}
