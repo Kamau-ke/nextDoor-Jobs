@@ -14,7 +14,7 @@ function Navbar() {
     <div className='w-screen h-20 flex flex-1 items-center justify-between px-6'>
 
     {/* left side of navbar */}
-    <div className='flex w-3/5 relative'>
+    <div className='flex w-2/4 relative'>
         <div className="mr-14">
             <h2 className='pl-6'>NextDoor-Jobs</h2>
         </div>
@@ -27,17 +27,22 @@ function Navbar() {
   
         
     {/* right side of navbar */}
-    <div className=' flex items-center border-b border-black w-96 '>
-          <form className=''>
-            <input type="text"  className='p-2 text-black w-full outline-none' placeholder='Search'/>
+    <div className=' flex items-center border-b border-black w-1/5 '>
+          <form className='w-full'>
+            <input type="text"  className='p-2 text-black w-full  outline-none' placeholder='Search'/>
         </form>
-        <FontAwesomeIcon icon={faMagnifyingGlass} className='h-4 ml-2 text-black' />
+        <FontAwesomeIcon icon={faMagnifyingGlass} className='h-5 float-left text-black' />
     </div>    
 
-    <div className='w-96 '>
-      <span>kamau</span>
-    </div>   
-    </div>
+    <div className=' w-1/5 space-x-2'>
+        <button className='bg-green-900 px-4  py-2  text-white rounded '>Login</button>
+        <button className='bg-green-300 px-4  py-2  text-black rounded '>signup</button>
+      {/* <span>kamau</span>
+        <button>logout</button> */}
+    </div>  
+
+    
+</div>
    
   )
 }
