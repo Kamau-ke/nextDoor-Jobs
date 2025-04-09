@@ -13,20 +13,9 @@ const verifyToken=(req, res, next)=>{
         }
        
         
-        req.userId=decoded.userId
+        req.user=decoded.userId
         next()
     })
-}
-
-const checkUser=(req, res, next)=>{
-    const token=req.cookies.token
-
-    if(!token){
-        res.status(400).json({message:'No user available'})
-    }
-
-    const user=jwt.decode(token, process.env.JWT_SECRET)
-    
 }
 
 

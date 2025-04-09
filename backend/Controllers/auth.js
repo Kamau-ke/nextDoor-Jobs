@@ -54,6 +54,12 @@ const login=async (req, res)=>{
     res.status(200).json({user:{name:user.name, email:user.email}})
 }
 
+const me=async (req, res)=>{
+    const user=req.user.user
+    res.status(200).json({user: user})
+}
+
+
 const logout=(req, res)=>{
     res.cookie('token', '', { maxAge: 1})
     res.status(200).json({message:'Logged out'})
@@ -64,4 +70,4 @@ const logout=(req, res)=>{
 
 
 
-module.exports={register,login, logout}
+module.exports={register,login, me, logout}

@@ -8,7 +8,7 @@ import LoginPage from './pages/Login'
 import Logout from './pages/Logout'
 
 function App() {
-  const [user, setUser]=useState(null)
+  // const [user, setUser]=useState(null)
 
  
 

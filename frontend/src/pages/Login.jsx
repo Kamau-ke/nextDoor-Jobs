@@ -22,7 +22,7 @@ const LoginPage = () => {
     try {
       const res=await axios.post('http://localhost:5000/api/v1/users/login', formData,
        {withCredentials:true})
-      setSuccess(res.data.msg || 'Login successfull')
+      // setSuccess(res.data.msg || 'Login successfull')
       console.log(res);
       
       navigate('/home')

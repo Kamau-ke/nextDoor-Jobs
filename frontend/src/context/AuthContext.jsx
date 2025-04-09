@@ -1,29 +1,31 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useState } from "react";
+import axios from "axios"; 
 
-export const AuthContext=createContext()
+export const AuthContext = createContext();
 
-export const authReducer=(state, action)=>{
-        switch(action.type){
-            case 'LOGIN':
-                return {user: action.payload}
-            
-            case 'LOGOUT':
-                return {user:null}
-            
-            default:
-                return state
-            
-        }
-}
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null); 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userEmail = await axios.get("http://localhost:5000/api/v1/users/me", {
+          withCredentials: true,
+        });
 
-export const AuthProvider=({children})=>{
-    const [state, dispatch]=useReducer(authReducer, {user:null})
+        const email = userEmail.data.user;
 
-    console.log('Auth context state', state);
+        setUser(email);
+      } catch (error) {
+        console.log("Failed to fetch user", error);
+      }
+    };
 
-    <AuthContext.Provider value={{...state, dispatch}}>
-        {children}
+    fetchUser();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
     </AuthContext.Provider>
-    
-}
-
+  );
+};

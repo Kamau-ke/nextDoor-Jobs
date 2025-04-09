@@ -1,86 +1,202 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsDown, faSpinner, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faDollarSign, faCalendarAlt, faBriefcase, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function JobCard() {
-  const [isSolid, setIsSolid] = useState(false);
-  const [data, setData] = useState([]);
+  const [favoriteJobs, setFavoriteJobs] = useState({});
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate=useNavigate()
+  const [retryCount, setRetryCount] = useState(0);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/v1/job',{
-          withCredentials:true
-        });
-       
-        
-        setData(response.data.data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    fetchData();
+  const fetchJobs = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://localhost:5000/api/v1/job', {
+        withCredentials: true
+      });
+      
+      setJobs(response.data.data);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+      setError(error.response?.data?.message || error.message || 'Failed to load jobs');
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const toggleHeart = () => {
-    setIsSolid(!isSolid);
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
+
+  const handleRetry = () => {
+    setRetryCount(count => count + 1);
+    fetchJobs();
   };
 
+  const toggleFavorite = (jobId, event) => {
+    event.stopPropagation();
+    setFavoriteJobs(prev => ({
+      ...prev,
+      [jobId]: !prev[jobId]
+    }));
+    
+    // Here you could also implement API call to save favorites to user profile
+    // saveJobToFavorites(jobId, !favoriteJobs[jobId]);
+  };
+
+  const navigateToJobDetail = (jobId) => {
+    navigate(`/job/${jobId}`);
+  };
+
+  const formatSkills = (skills) => {
+    if (!skills) return [];
+    return Array.isArray(skills) ? skills : [skills];
+  };
+
+  const formatPostedTime = (days) => {
+    if (days === 0) return 'Today';
+    if (days === 1) return 'Yesterday';
+    return `${days} days ago`;
+  };
+
+  // Loading states
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12">
+        <FontAwesomeIcon icon={faSpinner} spin className="text-green-600 text-4xl mb-4" />
+        <p className="text-gray-600">Loading available jobs...</p>
+      </div>
+    );
+  }
+
+  // Error states
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="bg-red-50 border-l-4 border-red-500 p-4 my-4 rounded shadow-sm">
+        <div className="flex items-center">
+          <FontAwesomeIcon icon={faExclamationTriangle} className="text-red-500 mr-3" />
+          <div>
+            <p className="text-red-700 font-medium">Failed to load jobs</p>
+            <p className="text-red-600 text-sm">{error}</p>
+          </div>
+        </div>
+        <button 
+          onClick={handleRetry} 
+          className="mt-3 bg-red-100 hover:bg-red-200 text-red-700 py-1 px-4 rounded text-sm transition duration-300"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  // Empty state
+  if (jobs.length === 0) {
+    return (
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center my-8">
+        <FontAwesomeIcon icon={faBriefcase} className="text-gray-400 text-5xl mb-4" />
+        <h3 className="text-xl font-medium text-gray-700 mb-2">No Jobs Found</h3>
+        <p className="text-gray-500 mb-6">There are no job listings available at the moment.</p>
+        <button 
+          onClick={handleRetry}
+          className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg transition duration-300"
+        >
+          Refresh Listings
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div>
-      {data.length === 0 ? (
-        <p>Loading jobs...</p>
-      ) : (
-        data.map((job) => (
-          <div key={job._id} onClick={()=>navigate(`/job/${job._id}`)} className="w-9/12 border border-gray border-x-0 pl-2 cursor-pointer hover:bg-gray-100 group">
-            <span className="text-xs">Posted {job.postedAt} days ago</span>
-            <div className="flex justify-between">
-              <div>
-                <h3 className="text-2xl mb-2.5 group-hover:text-green-600">{job.title}</h3>
-                <p className="text-xs mb-5">
-                   Est Budget: ${job.budget}
-                </p>
+    <div className="max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 gap-4 md:gap-6">
+        {jobs.map((job) => (
+          <div 
+            key={job._id} 
+            onClick={() => navigateToJobDetail(job._id)}
+            className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 bg-white cursor-pointer"
+          >
+            <div className="p-5">
+              {/* Header with job title and favorite button */}
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <span className="inline-flex items-center text-xs text-gray-500 mb-2">
+                    <FontAwesomeIcon icon={faCalendarAlt} className="mr-1" />
+                    Posted {formatPostedTime(job.postedAt)}
+                  </span>
+                  <h3 className="text-xl md:text-2xl font-medium text-gray-800 group-hover:text-green-600 transition-colors duration-300">
+                    {job.title}
+                  </h3>
+                </div>
+                <button 
+                  onClick={(e) => toggleFavorite(job._id, e)}
+                  className="text-gray-400 hover:text-red-500 transition-colors duration-300 p-2"
+                  aria-label={favoriteJobs[job._id] ? "Remove from favorites" : "Add to favorites"}
+                >
+                  <FontAwesomeIcon 
+                    icon={favoriteJobs[job._id] ? faHeartSolid : faHeartRegular} 
+                    className="h-5 w-5" 
+                  />
+                </button>
               </div>
-              <div className="space-x-3 mr-6 -top-2">
-                <FontAwesomeIcon icon={isSolid ? faHeartSolid : faHeartRegular} className="h-6 cursor-pointer" onClick={toggleHeart} />
-              </div>
-            </div>
-            <div className="mb-4">
-              <p>{job.description}</p>
-            </div>
-            <div className="flex mb-4">
               
-                <h4 className="bg-gray-300 w-28 py-2 rounded-full text-center ml-4">
-                  {job.skills}
-                </h4>
-             
-            </div>
-            <div className="flex space-x-10 mb-4 text-sm">
-              <p>{job.paymentVerified ? 'Payment Verified' : 'Payment Unverified'}</p>
-            
-      
-              <div>
-                <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
-                <span>{job.location}</span>
+              {/* Budget */}
+              <div className="flex items-center text-green-700 font-medium mb-4">
+                <FontAwesomeIcon icon={faDollarSign} className="mr-1" />
+                <span>Est. Budget: ${job.budget}</span>
+              </div>
+              
+              {/* Description */}
+              <div className="mb-4">
+                <p className="text-gray-600 line-clamp-3">{job.description}</p>
+              </div>
+              
+              {/* Skills */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {formatSkills(job.skills).map((skill, index) => (
+                  <span 
+                    key={index} 
+                    className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              
+              {/* Footer info */}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500 pt-2 border-t border-gray-100">
+                <div className="flex items-center">
+                  {job.paymentVerified ? (
+                    <span className="flex items-center text-green-600">
+                      <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                      Payment Verified
+                    </span>
+                  ) : (
+                    <span className="text-gray-500">Payment Unverified</span>
+                  )}
+                </div>
+                
+                {job.location && (
+                  <div className="flex items-center">
+                    <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
+                    <span>{job.location}</span>
+                  </div>
+                )}
               </div>
             </div>
-          
           </div>
-        ))
-      )}
+        ))}
+      </div>
     </div>
   );
 }
