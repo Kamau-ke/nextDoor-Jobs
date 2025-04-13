@@ -5,16 +5,18 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); 
+  const [email, setEmail]=useState(null)
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userEmail = await axios.get("http://localhost:5000/api/v1/users/me", {
+        const res = await axios.get("http://localhost:5000/api/v1/users/me", {
           withCredentials: true,
         });
 
-        const email = userEmail.data.user;
+        const email = res.data.user.userEmail;
 
-        setUser(email);
+
+        setEmail(email);
       } catch (error) {
         console.log("Failed to fetch user", error);
       }

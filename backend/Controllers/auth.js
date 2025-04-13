@@ -55,8 +55,9 @@ const login=async (req, res)=>{
 }
 
 const me=async (req, res)=>{
-    const user=req.user.user
-    res.status(200).json({user: user})
+    const userId=req.user.userId
+    const userEmail=req.user.userEmail
+    res.status(200).json({userId: userId, userEmail:userEmail })
 }
 
 

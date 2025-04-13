@@ -6,6 +6,7 @@ import JobApplication from './pages/JobApplication';
 import Register from './pages/Register'
 import LoginPage from './pages/Login'
 import Logout from './pages/Logout'
+import PostJob from './pages/PostJob';
 
 function App() {
   // const [user, setUser]=useState(null)
@@ -23,6 +24,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/job/:jobId" element={<JobApplication />} />
           <Route path='/logout' element={<Logout/>} />
+          <Route path='/postjob' element={<PostJob/>}/>
         </Routes>
       </Router>
     </div>

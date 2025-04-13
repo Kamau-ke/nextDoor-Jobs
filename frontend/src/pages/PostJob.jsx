@@ -1,73 +1,198 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { toast } from 'react-hot-toast'
 import Navbar from '../components/Navbar'
-import { useState } from 'react'
 import axios from 'axios'
+import Footer from './Footer'
+
 function PostJob() {
+  const initialFormState = {
+    title: '',
+    description: '',
+    position: '',
+    skills: '',
+    location: '',
+    budget: '',
+    createdBy: ''
+  }
 
-  const [title, setTitle]=useState('')
-  const [description, setDescription]=useState('')
-  const [position, setPosition]=useState('')
-  const [skills, setSkills]=useState('')
-  const [country, setCountry]=useState('')
-  const [budget, setBudget]=useState('')
+  const [formData, setFormData] = useState(initialFormState)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState({})
 
-  const [success, setSuccess]=useState(null)
-  const [error, setError]=useState(null)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
 
-  const handleSubmit=async (e)=>{
+  const validateForm = () => {
+    const newErrors = {}
+    
+    if (!formData.title.trim()) newErrors.title = 'Job title is required'
+    if (!formData.description.trim()) newErrors.description = 'Description is required'
+    if (!formData.budget.trim()) newErrors.budget = 'Budget is required'
+    if (!formData.skills.trim()) newErrors.skills = 'At least one skill is required'
+    
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    if (!validateForm()) return
 
-    const formData={
-      title,
-      description,
-      position,
-      skills,
-      country,
-      budget
-    }
-
-
+    setIsSubmitting(true)
+    
     try {
-     const response=await axios.post('http://localhost:5000/api/v1/job', formData)
-     setSuccess(response || 'Job posted successfuly')
-     console.log(response);
-     
-    } catch (error) {
-      setError(error)
-      console.log(error);
+      const response = await axios.post('http://localhost:5000/api/v1/job', formData, {withCredentials:true})
       
+      toast.success('Job posted successfully!')
+      setFormData(initialFormState) // Reset form
+      console.log('Success:', response.data)
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to post job. Please try again.'
+      toast.error(errorMessage)
+      console.error('Error:', error)
+    } finally {
+      setIsSubmitting(false)
     }
-    
-    
   }
 
   return (
-    <div>
-      <Navbar/>
-      <div className='w-screen h-screen  flex justify-center'>
-      <form action="" onSubmit={handleSubmit} className='w-3/4 flex flex-col  mt-12 '>
-        <label htmlFor="">Name of your job?</label>
-        <input type="text" onChange={e=>{setTitle(e.target.value)}} className='border border-slate-500 p-2 mb-5 w-1/4'/>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Post a New Job</h1>
+        
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="title">
+              Job Title*
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.title ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="e.g., Mechanic, driver, HR"
+            />
+            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+          </div>
 
-        <label htmlFor="">Give a blief description</label>
-        <textarea onChange={e=>{setDescription(e.target.value)}}  className='border border-slate-500 p-8 mb-5 w-1/2 '/>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="description">
+              Description*
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="4"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.description ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="Provide details about the job responsibilities and requirements"
+            />
+            {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+          </div>
 
-        <label htmlFor="">How much are you willing to pay?</label>
-        <input type="text" onChange={e=>{setBudget(e.target.value)}}  className='border border-slate-500 p-2 mb-5 w-1/4'/>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="budget">
+              Budget*
+            </label>
+            <input
+              type="text"
+              id="budget"
+              name="budget"
+              value={formData.budget}
+              onChange={handleChange}
+              className={`w-full sm:w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.budget ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="e.g., ksh500-ksh1000"
+            />
+            {errors.budget && <p className="text-red-500 text-sm mt-1">{errors.budget}</p>}
+          </div>
 
-        <label htmlFor="">Position <span className='text-slate-600'>[ optional ]</span></label>
-        <input type="text" onChange={e=>{setPosition(e.target.value)}}  className='border border-slate-500 p-2 mb-5 w-1/4'/>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="position">
+              Position <span className="text-gray-500 text-sm">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="position"
+              name="position"
+              value={formData.position}
+              onChange={handleChange}
+              className="w-full sm:w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              
+            />
+          </div>
 
-        <label htmlFor="">Which skills are required?</label>
-        <textarea onChange={e=>{setSkills(e.target.value)}}   className='border border-slate-500 p-8 mb-5 w-1/2'/>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="skills">
+              Required Skills*
+            </label>
+            <textarea
+              id="skills"
+              name="skills"
+              value={formData.skills}
+              onChange={handleChange}
+              rows="3"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.skills ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="any job (one per line or comma-separated)"
+            />
+            {errors.skills && <p className="text-red-500 text-sm mt-1">{errors.skills}</p>}
+          </div>
 
-        <label htmlFor="">Country <span className='text-slate-600'>[ optional ]</span></label>
-        <input type="text" onChange={e=>{setCountry(e.target.value)}}  className='border border-slate-500 p-2 mb-5 w-1/4'/>
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="county">
+              Country <span className="text-gray-500 text-sm">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              className="w-full sm:w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="e.g., Nairobi"
+            />
+          </div>
 
-
-        <button type='submit' className='p-2 bg-green-500 text-white rounded w-1/2'>Post Job</button>
-      </form> 
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`px-6 py-2 bg-blue-600 text-white font-medium rounded-md 
+                         hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                         ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+            >
+              {isSubmitting ? 'Posting...' : 'Post Job'}
+            </button>
+          </div>
+        </form>
       </div>
+
+      <Footer/>
     </div>
   )
 }
