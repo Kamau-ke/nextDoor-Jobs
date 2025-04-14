@@ -20,11 +20,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/job/:jobId" element={<JobApplication />} />
           <Route path='/logout' element={<Logout/>} />
-          <Route path='/postjob' element={<PostJob/>}/>
+          <Route path='/post-job' element={<PostJob/>}/>
         </Routes>
       </Router>
     </div>

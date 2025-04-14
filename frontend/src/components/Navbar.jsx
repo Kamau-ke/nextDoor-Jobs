@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { faAngleDown, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faBars, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { AuthContext } from '../context/AuthContext' // Adjust the import path as needed
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
+  
+  // Get user from AuthContext
+  const { email } = useContext(AuthContext);
+  console.log(email);
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -29,15 +34,9 @@ function Navbar() {
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8">
             <li className="group relative">
-              <Link to="/jobs" className="font-medium hover:text-green-700 transition duration-300 flex items-center">
+              <Link to="/jobs" className="font-medium hover:text-green-700 transition duration-300">
                 Find Jobs
-                <FontAwesomeIcon icon={faAngleDown} className="ml-1 h-3 w-3" />
               </Link>
-              <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md invisible group-hover:visible transition duration-300 opacity-0 group-hover:opacity-100">
-                <Link to="/jobs/full-time" className="block px-4 py-2 hover:bg-gray-100">Full Time</Link>
-                <Link to="/jobs/part-time" className="block px-4 py-2 hover:bg-gray-100">Part Time</Link>
-                <Link to="/jobs/remote" className="block px-4 py-2 hover:bg-gray-100">Remote</Link>
-              </div>
             </li>
             <li>
               <Link to="/messages" className="font-medium hover:text-green-700 transition duration-300">
@@ -64,31 +63,39 @@ function Navbar() {
           </form>
         </div>
 
-        {/* Auth Buttons */}
+        {/* Auth Buttons or User Info */}
         <div className="hidden md:flex space-x-4">
-          <Link to="/login" className="bg-green-800 px-5 py-2 text-white rounded-md hover:bg-green-900 transition duration-300">
-            Login
-          </Link>
-          <Link to="/signup" className="bg-green-200 px-5 py-2 text-green-900 font-medium rounded-md hover:bg-green-300 transition duration-300">
-            Sign Up
-          </Link>
-          
-          {/* Uncomment when user is logged in
-          <div className="flex items-center space-x-4">
-            <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-gray-600 hover:text-green-700 cursor-pointer" />
-            <div className="flex items-center space-x-2 cursor-pointer group relative">
-              <img src="/path-to-profile-image.jpg" alt="Profile" className="h-8 w-8 rounded-full object-cover" />
-              <span className="text-gray-700">Username</span>
-              <FontAwesomeIcon icon={faAngleDown} className="h-3 w-3 text-gray-500" />
-              
-              <div className="absolute right-0 mt-16 w-48 bg-white shadow-lg rounded-md invisible group-hover:visible transition duration-300 opacity-0 group-hover:opacity-100">
-                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
-                <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</Link>
-                <button className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+          {!email ? (
+            // Show these buttons when email is not logged in
+            <>
+              <Link to="/login" className="bg-green-800 px-5 py-2 text-white rounded-md hover:bg-green-900 transition duration-300">
+                Login
+              </Link>
+              <Link to="/signup" className="bg-green-200 px-5 py-2 text-green-900 font-medium rounded-md hover:bg-green-300 transition duration-300">
+                Sign Up
+              </Link>
+            </>
+          ) : (
+            // Show these items when email is logged in
+            <div className="flex items-center space-x-4">
+              <Link to="/post-job" className="bg-green-600 px-5 py-2 text-white rounded-md hover:bg-green-700 transition duration-300 flex items-center">
+                <FontAwesomeIcon icon={faPlus} className="mr-2 h-4 w-4" />
+                Post Job
+              </Link>
+              {/* <FontAwesomeIcon icon={faBell} className="h-5 w-5 text-gray-600 hover:text-green-700 cursor-pointer" /> */}
+              <div className="flex items-center space-x-2 cursor-pointer group relative">
+                <img src="/path-to-profile-image.jpg" alt="Profile" className="h-8 w-8 rounded-full object-cover bg-gray-200" />
+                <span className="text-gray-700">{email || 'email'}</span>
+                <FontAwesomeIcon icon={faAngleDown} className="h-3 w-3 text-gray-500" />
+                
+                <div className="absolute right-0 mt-16 w-48 bg-white shadow-lg rounded-md invisible group-hover:visible transition duration-300 opacity-0 group-hover:opacity-100">
+                  {/* <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+                  <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</Link> */}
+                  <button className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+                </div>
               </div>
             </div>
-          </div>
-          */}
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -125,16 +132,31 @@ function Navbar() {
               <li>
                 <Link to="/messages" className="block font-medium">Messages</Link>
               </li>
+              {user && (
+                <li>
+                  <Link to="/post-job" className="block font-medium text-green-700">Post Job</Link>
+                </li>
+              )}
             </ul>
             
-            <div className="flex flex-col space-y-3">
-              <Link to="/login" className="bg-green-800 px-5 py-2 text-white rounded-md text-center">
-                Login
-              </Link>
-              <Link to="/signup" className="bg-green-200 px-5 py-2 text-green-900 font-medium rounded-md text-center">
-                Sign Up
-              </Link>
-            </div>
+            {!user ? (
+              <div className="flex flex-col space-y-3">
+                <Link to="/login" className="bg-green-800 px-5 py-2 text-white rounded-md text-center">
+                  Login
+                </Link>
+                <Link to="/signup" className="bg-green-200 px-5 py-2 text-green-900 font-medium rounded-md text-center">
+                  Sign Up
+                </Link>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between border-t border-gray-200 pt-3">
+                <div className="flex items-center">
+                  <img src="/path-to-profile-image.jpg" alt="Profile" className="h-8 w-8 rounded-full object-cover bg-gray-200 mr-2" />
+                  <span className="text-gray-700">{user?.email || 'User'}</span>
+                </div>
+                <button className="text-red-600 font-medium">Logout</button>
+              </div>
+            )}
           </div>
         </div>
       )}

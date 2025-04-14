@@ -12,11 +12,13 @@ export const AuthProvider = ({ children }) => {
         const res = await axios.get("http://localhost:5000/api/v1/users/me", {
           withCredentials: true,
         });
-
-        const email = res.data.user.userEmail;
-
+        
+        // console.log();
+        
+        const email = res.data.userEmail
 
         setEmail(email);
+
       } catch (error) {
         console.log("Failed to fetch user", error);
       }
@@ -26,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ email, setEmail }}>
       {children}
     </AuthContext.Provider>
   );

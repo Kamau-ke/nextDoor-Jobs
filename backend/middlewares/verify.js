@@ -14,9 +14,11 @@ const verifyToken=(req, res, next)=>{
            return res.status(400).json({message: 'Login first'})
         }
        
-        
-        req.userId=decoded.userId
-        req.userEmail=decoded.email
+        req.user={
+            userId:decoded.userId,
+            userEmail:decoded.email
+        }
+       
         next()
     })
 }

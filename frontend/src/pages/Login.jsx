@@ -48,7 +48,7 @@ const LoginPage = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <Link to='/register' className="font-medium text-green-600 hover:text-green-500"> create a new account</Link>
+            <Link to='/signup' className="font-medium text-green-600 hover:text-green-500"> create a new account</Link>
             {/* <a href="" >
               create a new account
             </a> */}
