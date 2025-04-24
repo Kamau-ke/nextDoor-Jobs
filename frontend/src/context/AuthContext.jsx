@@ -4,7 +4,7 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); 
+  const [userId, setUserId] = useState(null); 
   const [email, setEmail]=useState(null)
   useEffect(() => {
     const fetchUser = async () => {
@@ -13,10 +13,12 @@ export const AuthProvider = ({ children }) => {
           withCredentials: true,
         });
         
-        // console.log();
+        console.log( res.data.userEmail);
         
         const email = res.data.userEmail
+        const id=res.data.userId
 
+        setUserId(id)
         setEmail(email);
 
       } catch (error) {
@@ -28,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ email, setEmail }}>
+    <AuthContext.Provider value={{ email, setEmail, userId, setUserId }}>
       {children}
     </AuthContext.Provider>
   );

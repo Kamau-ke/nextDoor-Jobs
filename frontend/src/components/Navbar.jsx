@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { faAngleDown, faBars, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { AuthContext } from '../context/AuthContext' // Adjust the import path as needed
+import { AuthContext } from '../context/AuthContext' 
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,10 +39,16 @@ function Navbar() {
               </Link>
             </li>
             <li>
+              <Link to="/listings" className="font-medium hover:text-green-700 transition duration-300">
+                My Listing
+              </Link>
+            </li>
+            <li>
               <Link to="/messages" className="font-medium hover:text-green-700 transition duration-300">
                 Messages
               </Link>
             </li>
+           
           </ul>
         </div>
 

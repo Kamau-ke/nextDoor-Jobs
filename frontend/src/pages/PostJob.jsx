@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect} from 'react'
+import {AuthContext} from '../context/AuthContext'
 import { toast } from 'react-hot-toast'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 import Footer from './Footer'
 
 function PostJob() {
+  const {userId}=useContext(AuthContext)
+
   const initialFormState = {
     title: '',
     description: '',
@@ -12,15 +15,29 @@ function PostJob() {
     skills: '',
     location: '',
     budget: '',
-    createdBy: ''
+    createdBy: userId
   }
 
+
+
+  
+  
   const [formData, setFormData] = useState(initialFormState)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState({})
 
+  useEffect(()=>{
+    setFormData(prev=>(
+     { 
+      ...prev,
+      createdBy:userId
+
+    }))
+  },[userId])
+
   const handleChange = (e) => {
     const { name, value } = e.target
+
     setFormData(prev => ({
       ...prev,
       [name]: value

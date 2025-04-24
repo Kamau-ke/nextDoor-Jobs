@@ -25,7 +25,7 @@ const LoginPage = () => {
       // setSuccess(res.data.msg || 'Login successfull')
       console.log(res);
       
-      navigate('/home')
+      navigate('/')
     } catch (error) {
       if(axios.isAxiosError(error)){
         

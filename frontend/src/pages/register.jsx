@@ -35,7 +35,7 @@ function Register() {
         withCredentials: true
       });
       setSuccess(response.data.msg || 'Registration successful');
-      setTimeout(() => navigate('/home'), 1500); // Give time to see success message
+      setTimeout(() => navigate('/'), 1500); // Give time to see success message
     } catch (error) {
       setError(error.response?.data?.message || 'Registration failed');
       console.log(error);

@@ -8,15 +8,16 @@ const createJob=async (req, res)=>{
 }
 
 const getAllJobs=async (req, res)=>{
-    const jobs=await Job.find({})
+    const jobs=await Job.find({}).sort({createdAt:-1})
     res.status(200).json({success:true, data:jobs, nHits:jobs.length})
 
 }
 
 
 const getUserJobs=async (req, res)=>{
-    const jobs=await Job.find({createdBy:req.user.userID})
-    res.status(200).json({success:true, data:jobs, nHits:jobs.length})
+    const {userId}=req.params
+    const jobs=await Job.find({createdBy:req.user.userId})
+    res.status(200).json({success:true, jobs:jobs, nHits:jobs.length})
 }
 
 const getJob=async (req,res)=>{
@@ -30,15 +31,15 @@ const getJob=async (req,res)=>{
 }
 
 const editJob=async (req,res)=>{
-    const {user:{userID},params:{id:jobId}, body:{title, description, budget, location,position, skills} }=req
-    const job=await Job.findOneAndUpdate({_id:jobId, createdBy:userID}, req.body, {new:true, runValidators:true})
+    const {user:{userId},params:{id:jobId}, body:{title, description, budget, location,position, skills} }=req
+    const job=await Job.findOneAndUpdate({_id:jobId, createdBy:userId}, req.body, {new:true, runValidators:true})
     res.status(200).json({job})
 }
 
 const deleteJob=async (req, res)=>{
-    const {user:{userID}, params:{id:jobId}}=req
+    const {user:{userId}, params:{id:jobId}}=req
 
-    const job=await Job.findOneAndDelete({_id:jobId, createdBy:userID})
+    const job=await Job.findOneAndDelete({_id:jobId, createdBy:userId})
     if(!job){
         throw new badRequest('Job not found')
     }

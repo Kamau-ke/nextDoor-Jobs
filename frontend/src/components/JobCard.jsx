@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsDown, faSpinner, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faLocationDot, faDollarSign, faCalendarAlt, faBriefcase, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -152,8 +150,8 @@ function JobCard() {
               
               {/* Budget */}
               <div className="flex items-center text-green-700 font-medium mb-4">
-                <FontAwesomeIcon icon={faDollarSign} className="mr-1" />
-                <span>Est. Budget: ${job.budget}</span>
+                
+                <span>Est. Budget: ksh{job.budget}</span>
               </div>
               
               {/* Description */}

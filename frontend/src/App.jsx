@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import LoginPage from './pages/Login'
 import Logout from './pages/Logout'
 import PostJob from './pages/PostJob';
+import UserJobListing from './pages/userJobListing';
 
 function App() {
   // const [user, setUser]=useState(null)
@@ -25,6 +26,7 @@ function App() {
           <Route path="/job/:jobId" element={<JobApplication />} />
           <Route path='/logout' element={<Logout/>} />
           <Route path='/post-job' element={<PostJob/>}/>
+          <Route path='/listings' element={<UserJobListing/>}/>
         </Routes>
       </Router>
     </div>
