@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import getTime from '../utils/getTime';
+import formatSkills from '../utils/formatSkills';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
@@ -56,16 +58,9 @@ function JobCard() {
     navigate(`/job/${jobId}`);
   };
 
-  const formatSkills = (skills) => {
-    if (!skills) return [];
-    return Array.isArray(skills) ? skills : [skills];
-  };
 
-  const formatPostedTime = (days) => {
-    if (days === 0) return 'Today';
-    if (days === 1) return 'Yesterday';
-    return `${days} days ago`;
-  };
+
+  
 
   // Loading states
   if (loading) {
@@ -130,7 +125,7 @@ function JobCard() {
                 <div>
                   <span className="inline-flex items-center text-xs text-gray-500 mb-2">
                     <FontAwesomeIcon icon={faCalendarAlt} className="mr-1" />
-                    Posted {formatPostedTime(job.postedAt)}
+                    Posted {getTime(job.createdAt)}
                   </span>
                   <h3 className="text-xl md:text-2xl font-medium text-gray-800 group-hover:text-green-600 transition-colors duration-300">
                     {job.title}

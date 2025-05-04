@@ -1,6 +1,6 @@
 const User=require('../model/user')
 const {badRequest, unAuthorized, notFound}=require('../errors')
-const customApiError = require('../errors/customError')
+
 
 const register=async (req, res)=>{
     const { email }=req.body

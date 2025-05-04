@@ -9,9 +9,12 @@ const applicationSchema=new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:'User'
     },
-    application:{
+    coverLetter:{
         type:String,
         required:[true, 'Provide your application']
+    },
+    appliedAt:{
+        type:Date
     }
 })
 

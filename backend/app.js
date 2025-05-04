@@ -9,6 +9,7 @@ const connectDB=require('./db/connect')
 const errorHandlerMiddleware=require('./middlewares/errorHandler')
 const notFound=require('./middlewares/notFound')
 const jobRouter=require('./Routes/job')
+const applicationRouter=require('./Routes/application')
 const verifyToken=require('./middlewares/verify')
 
 
@@ -27,6 +28,7 @@ app.use(express.json())
 
 app.use('/api/v1/users', auth)
 app.use('/api/v1/job',verifyToken, jobRouter)
+app.use('/api/v1/application',verifyToken, applicationRouter)
 
 app.get('/token', (req,res)=>{
     console.log(req.cookies);

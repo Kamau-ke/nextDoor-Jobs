@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from './Footer'
 import axios from 'axios'
+import formatSkills from '../utils/formatSkills'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,7 +17,6 @@ function JobApplication() {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
     const [coverLetter, setCoverLetter] = useState('')
-    const [proposalAmount, setProposalAmount] = useState('')
     const [submitting, setSubmitting] = useState(false)
     const [submitError, setSubmitError] = useState(null)
 
@@ -38,10 +38,7 @@ function JobApplication() {
         fetchData()
     }, [jobId])
 
-    const formatSkills=(skills)=>{
-        if(!skills) return []
-        return Array.isArray(skills) ? skills : [skills]
-    }
+   
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -51,18 +48,15 @@ function JobApplication() {
             return
         }
         
-        if (!proposalAmount.trim()) {
-            setSubmitError('Proposal amount is required')
-            return
-        }
+      
         
         setSubmitting(true)
         setSubmitError(null)
         
         try {
             await axios.post(`http://localhost:5000/api/v1/job/${jobId}/apply`, {
-                coverLetter,
-                proposalAmount: Number(proposalAmount)
+                coverLetter
+               
             }, {
                 withCredentials: true
             })
@@ -109,7 +103,7 @@ function JobApplication() {
 
                         <div className="border-t md:border-l border-gray-300 mt-4 md:mt-0 md:ml-4 pt-4 md:pt-0 max-w-full">
                             <div className="flex items-center md:ml-4 md:mt-4">
-                                <FontAwesomeIcon icon={faDollarSign} className="mr-2" />
+                                
                                 <span>KSH: {job.budget}</span>
                             </div>
                         </div>
@@ -129,23 +123,6 @@ function JobApplication() {
                     </div>
                 </div>
 
-                {/* Proposal amount */}
-                <div className="border border-gray-300 rounded-xl md:rounded-3xl mt-6 md:mt-8 p-3 md:p-4">
-                    <h1 className="font-medium text-xl md:text-2xl pb-4">Your proposal amount</h1>
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <FontAwesomeIcon icon={faDollarSign} className="text-gray-500" />
-                        </div>
-                        <input 
-                            type="number" 
-                            className="pl-8 border border-gray-300 rounded-xl md:rounded-2xl w-full p-2 md:p-3"
-                            placeholder="Enter your bid amount in KSH"
-                            value={proposalAmount}
-                            onChange={(e) => setProposalAmount(e.target.value)}
-                            required
-                        />
-                    </div>
-                </div>
 
                 {/* cover letter  */}
                 <div className="border border-gray-300 rounded-xl md:rounded-3xl mt-6 md:mt-8 mb-8 md:mb-12">
